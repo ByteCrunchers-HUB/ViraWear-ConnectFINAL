@@ -423,12 +423,7 @@
                     <span id="mainBadge" class="badge badge-live">LIVE</span>
                 </div>
 
-                <div class="main-stream">
-                    <div class="main-stream-icon">&#x1F3A6;</div>
-                    <div class="main-stream-title" id="mainStreamTitle">Video Stream Active</div>
-                    <div class="main-stream-subtitle" id="mainStreamSubtitle">Building A / Feed 1: Main-Entrance</div>
-                    <div class="main-stream-meta" id="mainStreamMeta">Viewers: 18 • Bitrate: 2200 kbps</div>
-                </div>
+                <video class="main-stream" autoplay muted playsinline></video>
 
                 <div class="last-update" id="mainLastUpdate">Last frame: --</div>
             </div>
@@ -789,6 +784,25 @@
         document.addEventListener("DOMContentLoaded", () => {
             startStreamFeed(renderLivestream);
         });
+        const webcamVideo = document.querySelector(".main-stream");
+
+const constraints = {
+    video: {
+        width: 1280,
+        height: 720,
+        facingMode: "environment"
+    },
+    audio: false
+};
+
+navigator.mediaDevices.getUserMedia(constraints)
+    .then(stream => {
+        webcamVideo.srcObject = stream;
+    })
+    .catch(error => {
+        console.error("Camera error:", error);
+    });
+
         
     </script>
 </body>
