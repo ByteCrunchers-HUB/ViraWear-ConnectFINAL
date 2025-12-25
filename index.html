@@ -6,111 +6,128 @@
   <title>ViraWear Connect | Login</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
       background: #09090B;
       color: #fff;
       overflow: hidden;
     }
 
+    /* Background Video */
     .bg-video {
       position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
+      inset: 0;
       width: 100%;
+      height: 100vh;
       object-fit: cover;
       z-index: -2;
     }
 
+    /* Cinematic Overlay */
     .overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100%;
-      background: rgba(0,0,0,0.6);
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.55),
+        rgba(0,0,0,0.85)
+      );
       z-index: -1;
     }
 
+    /* Loader */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: #fff url("/Untitled design (2).gif") no-repeat center;
+      background-size: 40%;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Layout */
     .container {
       height: 100vh;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
+      padding-right: 8%;
     }
 
+    /* Login Card */
     .card {
-      background: #18181B;
-      width: 500px;
-      padding: 40px;
-      border-radius: 16px;
+      width: 460px;
+      padding: 42px;
+      border-radius: 20px;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.6),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
       text-align: center;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    /* Logo + Title */
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 6px;
     }
 
     .logo {
-      width: 140px;
-      margin-top: 10px;
-      margin-left: -30px;
-    }
-
-    .logo,
-    .title h1 {
-      display: inline-block;
-      vertical-align: middle;
+      width: 52px;
     }
 
     .title h1 {
-      margin-left: -30px;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 600;
+      margin: 0;
     }
 
     .subtitle {
-      margin-top: -20px;
-      margin-bottom: 25px;
+      margin-bottom: 28px;
       font-size: 14px;
-      color: #a8a8a8;
+      color: #b3b3b3;
     }
 
+    /* Form */
     label {
       display: block;
       text-align: left;
-      margin: 10px 0 5px;
+      margin-bottom: 6px;
       font-size: 14px;
     }
 
     input {
       width: 100%;
-      padding: 12px;
-      border-radius: 6px;
-      border: 1px solid #333;
-      background: #232428;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
       color: #fff;
       font-size: 15px;
       outline: none;
-      margin-bottom: 15px;
+      margin-bottom: 18px;
+    }
+
+    input::placeholder {
+      color: #9ca3af;
     }
 
     input:focus {
-      border: 3px solid #777;
+      border-color: #0ea5e9;
+      box-shadow: 0 0 0 2px rgba(14,165,233,0.25);
     }
 
-    button {
-      width: 90%;
-      padding: 14px;
-      background: #008ec4;
-      color: #fff;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
+    /* Error */
     .error-msg {
       color: #ff6b6b;
       font-size: 14px;
@@ -119,21 +136,38 @@
       min-height: 18px;
     }
 
-    .loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
+    /* Button */
+    button {
       width: 100%;
-      background: white url("/Untitled\ design\ \(2\).gif") no-repeat center center;
-      background-size: 40%;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
+      padding: 14px;
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(14,165,233,0.4);
+    }
+
+    /* Trust Text */
+    .trust {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 16px;
     }
   </style>
 </head>
 
 <body>
+
+  <!-- Background Video -->
   <video autoplay muted loop class="bg-video">
     <source src="mv.mp4" type="video/mp4" />
   </video>
@@ -143,39 +177,43 @@
 
   <div class="container">
     <div class="card">
+
       <div class="title">
-        <img src="ViraWear Connect (1).png" alt="logo" class="logo" />
+        <img src="ViraWear Connect (1).png" class="logo" alt="ViraWear Logo">
         <h1>ViraWear Connect</h1>
       </div>
 
-      <p class="subtitle">Sign in to access your monitoring dashboard</p>
+      <p class="subtitle">
+        Protecting women. Connecting help. Anytime, anywhere.
+      </p>
 
       <form id="loginForm">
-        <label for="email">Email</label>
-        <input id="email" type="email" placeholder="your@email.com" required />
+        <label>Email</label>
+        <input id="email" type="email" placeholder="your@email.com" required>
 
-        <label for="password">Password</label>
-        <input id="password" type="password" placeholder="••••••••" required />
+        <label>Password</label>
+        <input id="password" type="password" placeholder="••••••••" required>
 
         <div id="errorMsg" class="error-msg"></div>
 
         <button type="submit" id="loginBtn">Sign In</button>
       </form>
+
+      <p class="trust">🔒 Your data is encrypted & protected</p>
+
     </div>
   </div>
 
-  <!-- Firebase Scripts -->
+  <!-- Firebase (UNCHANGED) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
   <script>
-    window.addEventListener("load", function () {
+    window.addEventListener("load", () => {
       const loader = document.querySelector(".loader");
       setTimeout(() => {
         loader.style.opacity = "0";
-        setTimeout(() => {
-          loader.style.display = "none";
-        }, 500);
+        setTimeout(() => loader.style.display = "none", 500);
       }, 2000);
     });
 
@@ -189,7 +227,6 @@
     };
 
     firebase.initializeApp(firebaseConfig);
-
     const auth = firebase.auth();
 
     const form = document.getElementById("loginForm");
@@ -198,37 +235,32 @@
     const errorMsg = document.getElementById("errorMsg");
     const loginBtn = document.getElementById("loginBtn");
 
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
+    form.addEventListener("submit", e => {
+      e.preventDefault();
 
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-
-      errorMsg.textContent = "";
       loginBtn.disabled = true;
       loginBtn.textContent = "Signing in...";
+      errorMsg.textContent = "";
 
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          window.location.href = "dashboard.html";
-        })
-        .catch((error) => {
-          if (error.code === "auth/user-not-found") {
-            errorMsg.textContent = "No account found with this email.";
-          } else if (error.code === "auth/wrong-password") {
-            errorMsg.textContent = "Incorrect password.";
-          } else {
-            errorMsg.textContent = error.message;
-          }
-        })
-        .finally(() => {
-          loginBtn.disabled = false;
-          loginBtn.textContent = "Sign In";
-        });
+      auth.signInWithEmailAndPassword(
+        emailInput.value.trim(),
+        passwordInput.value
+      )
+      .then(() => window.location.href = "dashboard.html")
+      .catch(error => {
+        if (error.code === "auth/user-not-found")
+          errorMsg.textContent = "No account found with this email.";
+        else if (error.code === "auth/wrong-password")
+          errorMsg.textContent = "Incorrect password.";
+        else
+          errorMsg.textContent = error.message;
+      })
+      .finally(() => {
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Sign In";
+      });
     });
   </script>
 
 </body>
 </html>
-
-
