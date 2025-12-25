@@ -45,7 +45,7 @@
     .loader {
       position: fixed;
       inset: 0;
-      background: #fff url("/Untitled design (2).gif") no-repeat center;
+      background: #09090B url("/Untitled design (2).gif") no-repeat center;
       background-size: 40%;
       z-index: 9999;
       transition: opacity 0.5s ease;
@@ -57,12 +57,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      
-      padding-right: 8%;
+      padding: 20px;
     }
 
     /* Login Card */
     .card {
+      position: relative;
       width: 460px;
       padding: 42px;
       border-radius: 20px;
@@ -72,6 +72,22 @@
         0 20px 40px rgba(0,0,0,0.6),
         inset 0 0 0 1px rgba(255,255,255,0.05);
       text-align: center;
+    }
+
+    /* Soft Glow */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 22px;
+      background: linear-gradient(
+        135deg,
+        rgba(14,165,233,0.35),
+        rgba(139,92,246,0.25),
+        rgba(14,165,233,0.35)
+      );
+      z-index: -1;
+      filter: blur(22px);
     }
 
     /* Logo + Title */
@@ -88,15 +104,17 @@
     }
 
     .title h1 {
-      font-size: 26px;
+      font-size: 27px;
       font-weight: 600;
+      letter-spacing: 0.3px;
       margin: 0;
     }
 
     .subtitle {
-      margin-bottom: 28px;
+      margin-bottom: 30px;
       font-size: 14px;
-      color: #b3b3b3;
+      color: #c7c7c7;
+      line-height: 1.4;
     }
 
     /* Form */
@@ -109,18 +127,23 @@
 
     input {
       width: 100%;
-      padding: 14px;
+      padding: 14px 16px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.06);
       color: #fff;
       font-size: 15px;
       outline: none;
       margin-bottom: 18px;
+      transition: border 0.2s, box-shadow 0.2s;
     }
 
     input::placeholder {
       color: #9ca3af;
+    }
+
+    input:hover {
+      border-color: rgba(255,255,255,0.18);
     }
 
     input:focus {
@@ -157,11 +180,34 @@
       box-shadow: 0 10px 25px rgba(14,165,233,0.4);
     }
 
+    button:active {
+      transform: scale(0.98);
+    }
+
+    /* Links */
+    .forgot {
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    .forgot a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
     /* Trust Text */
     .trust {
       font-size: 12px;
       color: #9ca3af;
       margin-top: 16px;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .card {
+        width: 100%;
+        padding: 32px;
+      }
     }
   </style>
 </head>
@@ -199,6 +245,10 @@
 
         <button type="submit" id="loginBtn">Sign In</button>
       </form>
+
+      <div class="forgot">
+        <a href="#">Forgot password?</a>
+      </div>
 
       <p class="trust">🔒 Your data is encrypted & protected</p>
 
@@ -265,4 +315,3 @@
 
 </body>
 </html>
-
